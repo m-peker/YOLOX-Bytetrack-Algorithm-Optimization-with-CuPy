@@ -50,11 +50,9 @@ def preproc_with_cupy(image, input_size, mean, std, swap=(2, 0, 1)):
     img = cp.array(image)
     r = min(input_size[0] / img.shape[0], input_size[1] / img.shape[1])
 
-    # Hedef boyutları hesaplayalım
     target_height = int(img.shape[0] * r)
     target_width = int(img.shape[1] * r)
 
-    # Hedef boyutların sıfır veya negatif olmadığını kontrol edelim
     if target_height <= 0 or target_width <= 0:
         raise ValueError(f"Invalid target size: ({target_width}, {target_height})")
 
