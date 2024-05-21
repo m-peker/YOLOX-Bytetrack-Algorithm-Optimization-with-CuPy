@@ -11,7 +11,7 @@ import sys
 sys.path.append('.')
 
 
-from yolox.data.data_augment import preproc, preproc_on_gpu
+from yolox.data.data_augment import preproc, preproc_with_cupy
 from yolox.exp import get_exp
 from yolox.utils import fuse_model, get_model_info, postprocess
 from yolox.utils.visualize import plot_tracking
@@ -187,7 +187,7 @@ class Predictor(object):
 
     def process_images(self, image_list, input_size, mean, std, swap=(2, 0, 1)):
         with ThreadPoolExecutor() as executor:
-            futures= [executor.submit(preproc_on_gpu, img, input_size, mean, std, swap) for img in image_list]
+            futures= [executor.submit(preproc_with_cupy, img, input_size, mean, std, swap) for img in image_list]
             results = [future.result() for future in futures]
         if results:
             return results

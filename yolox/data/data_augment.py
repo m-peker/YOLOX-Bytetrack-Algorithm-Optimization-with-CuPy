@@ -206,7 +206,7 @@ def preproc(image, input_size, mean, std, swap=(2, 0, 1)):
     padded_img = np.ascontiguousarray(padded_img, dtype=np.float32)
     return padded_img, r
 
-def preproc_on_gpu(image, input_size, mean, std, swap=(2, 0, 1)):
+def preproc_with_cupy(image, input_size, mean, std, swap=(2, 0, 1)):
     device = cp.cuda.Device(0)
     device.use()
 
